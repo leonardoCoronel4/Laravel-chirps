@@ -22,6 +22,7 @@ Este proyecto es una aplicación sencilla para gestionar **chirps** (mensajes co
 - **Internacionalización** con el paquete laravel-lang para soporte multilenguaje.
 - **Blade como motor de plantillas**.
 - **Autorización con middleware** para proteger rutas y recursos.
+- **PHPUnit** para testear funcionalidad de la aplicación.
 
  ## Estructura relevante del proyecto
 
@@ -30,6 +31,7 @@ Este proyecto es una aplicación sencilla para gestionar **chirps** (mensajes co
 - Policies en app/Policies para autorización a nivel de modelo.
 - Validaciones mediante Form Requests personalizados.
 - Rutas API en routes/api.php.
+- Testeo de funcionalidades en tests/Feature
 
  ## Cómo ejecutar y probar
 
