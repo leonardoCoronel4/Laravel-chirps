@@ -30,4 +30,23 @@ class ChirpPolicyTest extends TestCase
         $response->assertForbidden();
         $this->assertDatabaseMissing('chirps', ['id' => $chirp->id, 'message' => 'ilegal Chirp update']);
     }
+
+    public function test_user_can_delete_own_chirp()
+    {
+        $user = User::factory()->create();
+        $chirp = Chirp::factory()->create(['user_id' => $user->id]);
+        $response = $this->actingAs($user)->delete("/chirps/{$chirp->id}");
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('chirps', ['id' => $chirp->id]);
+    }
+
+    public function test_user_cannot_delete_other_users_chirp()
+    {
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $chirp = Chirp::factory()->for($otherUser)->create();
+        $response = $this->actingAs($user)->delete("/chirps/{$chirp->id}");
+        $response->assertForbidden();
+        $this->assertDatabaseHas('chirps', ['id' => $chirp->id]);
+    }
 }
